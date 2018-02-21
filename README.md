@@ -40,7 +40,7 @@ App
   Dashboard
     NoteCreateForm
     NoteList
-      Noteitem
+      NoteItem
 ```
 ###### App Component
 * The App component should manage the frontend routes and have a navbar
