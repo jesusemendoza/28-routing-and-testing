@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpenseForm from '../note-create-form/index';
+import NoteCreateForm from '../note-create-form/index';
 
 class Dashboard extends React.Component{
   constructor(props){
@@ -11,11 +11,13 @@ class Dashboard extends React.Component{
     // Binding Handlers
     //----------------------------------------------------
     let memberFunctions = Object.getOwnPropertyNames(Dashboard.prototype);
+    console.log(memberFunctions)
     for(let functionName of memberFunctions){
       if(functionName.startsWith('handle')){
         this[functionName] = this[functionName].bind(this);
       }
     }
+    console.log('after',memberFunctions)
     //----------------------------------------------------
   }
   //------------------------------------------------------
@@ -31,6 +33,18 @@ class Dashboard extends React.Component{
     });
   }
 
+  handleDeleteNote(event){
+    event.preventDefault();
+    console.log('inside index', this.state);
+
+    // this.setState(previousState => {
+    //   return {notes :[...previousState.notes,expense]};
+    // });
+  }
+  
+
+
+
   //add delete stuff here
   //------------------------------------------------------
   // Hooks
@@ -41,14 +55,16 @@ class Dashboard extends React.Component{
     return(
       <div>
         <h1>To-Do List</h1>
-        <ExpenseForm handleAddExpense={this.handleAddExpense}/>
+        <NoteCreateForm 
+        handleAddExpense={this.handleAddExpense}
+        handleDeleteNote={this.handleDeleteNote}/>
         <ul>
           {
             this.state.notes.map((expense,index) =>
             <div key={index}>
               <li>{expense.name}</li>
               <p>{expense.description}</p>
-              <button >Delete</button>
+              <button id={index} onClick={this.handleDeleteNote}>Delete</button>
             </div>  
             )
           }
